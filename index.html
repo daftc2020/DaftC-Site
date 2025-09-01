@@ -5,49 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DAFTC — Coming Soon</title>
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      background: #000;
-      overflow: hidden;
-    }
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      color: white;
-      font-family: Arial, sans-serif;
-    }
+    html, body { margin:0; height:100%; background:#000; overflow:hidden; }
+    body { display:flex; align-items:center; justify-content:center; flex-direction:column; color:#fff; font-family:Arial, sans-serif; }
     video {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      min-width: 100%;
-      min-height: 100%;
-      width: auto;
-      height: auto;
-      z-index: -1;
-      transform: translate(-50%, -50%);
-      object-fit: cover;
+      position:absolute; inset:0; width:100%; height:100%;
+      object-fit:cover; z-index:-1; background:#000;
     }
-    h1 {
-      font-size: clamp(2rem, 6vw, 4rem);
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      margin: 0;
-      z-index: 2;
-      text-shadow: 0 0 15px rgba(0,0,0,0.8);
-    }
+    h1 { font-size:clamp(2rem,6vw,4rem); text-transform:uppercase; letter-spacing:4px; margin:0; text-shadow:0 0 15px rgba(0,0,0,.8); }
   </style>
 </head>
 <body>
-  <video autoplay muted loop playsinline>
-    <source src="daftc-animation.mp4" type="video/mp4">
+  <video id="bg" autoplay muted loop playsinline preload="auto" poster="logo.png">
     <source src="daftc-animation.webm" type="video/webm">
-    Your browser does not support the video tag.
+    <source src="daftc-animation.mp4" type="video/mp4">
   </video>
   <h1>Coming Soon</h1>
-</body>
-</html>
+  <script>
+    // Force play on iOS/Safari if paused after load
+    const v = document.getElementById('bg');
+    v.addEventListener('canplay', ()=>{ if (v.paused) v.play().catch(()=>{}); });
