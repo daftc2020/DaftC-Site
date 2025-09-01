@@ -4,42 +4,54 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DAFTC — Coming Soon</title>
-  <style>
-    html, body {
-      margin: 0; height: 100%; background:#000;
-      font-family: Arial, sans-serif;
-      color:#fff;
-    }
-    .wrap {
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 24px; padding: 20px;
-    }
-    .coin {
-      display:block;
-      max-width: min(92vw, 1200px);
-      max-height: 70vh;
-      width: auto; height: auto;
-      object-fit: contain;
-    }
-    h1 {
-      margin: 0;
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      text-align: center;
+ <style>
+  html, body {
+    margin: 0; height: 100%; background:#000; color:#fff;
+    font-family: Arial, sans-serif;
+  }
+  .wrap {
+    min-height: 100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:24px; padding:20px;
+  }
+  .coin {
+    display:block; max-width:min(92vw,1200px); max-height:70vh;
+    width:auto; height:auto; object-fit:contain;
+  }
 
-      /* Gold gradient effect */
-      background: linear-gradient(180deg, #f5d98c 0%, #d4a94a 45%, #8c6328 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+  /* Metallic DAFTC-style type + shimmer */
+  h1{
+    position:relative; margin:0; text-transform:uppercase; letter-spacing:3px;
+    font-weight:900; text-align:center; font-size:clamp(2rem,5vw,3rem);
 
-      /* Subtle depth/shadow like the coin text */
-      text-shadow: 0 2px 3px rgba(0,0,0,0.8), 0 4px 6px rgba(0,0,0,0.6);
-    }
-  </style>
+    /* gold fill */
+    background: linear-gradient(180deg,#f5d98c 0%,#d4a94a 45%,#8c6328 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+
+    /* depth */
+    text-shadow: 0 2px 3px rgba(0,0,0,.85), 0 4px 6px rgba(0,0,0,.6);
+  }
+  /* moving glint sweep */
+  h1::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:
+      linear-gradient(120deg, transparent 0%, rgba(255,255,255,.35) 10%, rgba(255,255,255,.85) 14%, rgba(255,255,255,.35) 18%, transparent 28%);
+    transform: translateX(-120%);
+    mix-blend-mode: screen;          /* nice on light over gold */
+    animation: glint 3.2s ease-in-out 0.6s infinite;
+  }
+  @keyframes glint{
+    0%   { transform: translateX(-120%); }
+    48%  { transform: translateX(120%); }
+    100% { transform: translateX(120%); }
+  }
+
+  /* accessibility */
+  @media (prefers-reduced-motion: reduce){
+    h1::after{ animation:none; opacity:0; }
+  }
+</style>
+
 </head>
 <body>
   <main class="wrap">
