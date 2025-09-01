@@ -48,26 +48,27 @@
 
     /* Gold text styled like the coin lettering (static, no shimmer) */
     .title {
-      margin: 0;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      font-weight: 900;
-      text-align: center;
-      font-size: clamp(1.6rem, 5vw, 3rem);
-      line-height: 1;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 900;
+  text-align: center;
+  font-size: clamp(2.5rem, 8vw, 6rem);  /* ⬅ bigger size */
+  line-height: 1;
 
-      /* metallic gradient fill */
-      background: linear-gradient(180deg, var(--gold-1) 0%, var(--gold-2) 48%, var(--gold-3) 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
+  /* metallic gradient fill */
+  background: linear-gradient(180deg, var(--gold-1) 0%, var(--gold-2) 48%, var(--gold-3) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 
-      /* subtle depth like stamped metal */
-      text-shadow:
-        0 2px 0 rgba(0,0,0,0.55),
-        0 6px 12px rgba(0,0,0,0.55);
-      animation: rise 500ms ease-out 120ms both;
-    }
+  /* subtle depth like stamped metal */
+  text-shadow:
+    0 2px 0 rgba(0,0,0,0.55),
+    0 6px 12px rgba(0,0,0,0.55);
+  animation: rise 500ms ease-out 120ms both;
+}
+
 
     /* Sound toggle button */
     .sound-btn {
