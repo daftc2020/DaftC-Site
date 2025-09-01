@@ -53,6 +53,38 @@
 </style>
 
 </head>
+  <audio id="bg-audio" autoplay loop>
+  <source src="DaftC coin.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+  const audio = document.getElementById('bg-audio');
+  // Try to play muted first (autoplay policy safe)
+  audio.volume = 0.4;
+  audio.muted = true;
+  audio.play().catch(()=>{});
+
+  // Add a small toggle button
+  const btn = document.createElement('button');
+  btn.textContent = "🔊 Sound On";
+  Object.assign(btn.style,{
+    position:'fixed', bottom:'20px', right:'20px',
+    padding:'10px 14px', border:'none', borderRadius:'8px',
+    background:'rgba(0,0,0,0.6)', color:'#fff',
+    fontSize:'14px', cursor:'pointer', zIndex:1000
+  });
+  btn.onclick = ()=>{
+    if(audio.muted){
+      audio.muted = false;
+      btn.textContent = "🔇 Sound Off";
+    }else{
+      audio.muted = true;
+      btn.textContent = "🔊 Sound On";
+    }
+  };
+  document.body.appendChild(btn);
+</script>
 <body>
   <main class="wrap">
     <img class="coin" src="daftc-animation.gif?v=3" alt="DAFTC animated crest">
