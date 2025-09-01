@@ -1,26 +1,53 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DAFTC — Coming Soon</title>
   <style>
-    html, body { margin:0; padding:0; height:100%; background:#000; }
-    body { display:flex; align-items:center; justify-content:center; flex-direction:column; }
-    img { max-width:80%; height:auto; }
-    h1 {
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #000;
+      overflow: hidden;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: white;
       font-family: Arial, sans-serif;
+    }
+    video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      z-index: -1;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+    }
+    h1 {
       font-size: clamp(2rem, 6vw, 4rem);
-      color: #fff;
-      margin-top: 1rem;
-      text-align:center;
       text-transform: uppercase;
-      letter-spacing: 2px;
+      letter-spacing: 4px;
+      margin: 0;
+      z-index: 2;
+      text-shadow: 0 0 15px rgba(0,0,0,0.8);
     }
   </style>
 </head>
 <body>
-  <img src="logo.png" alt="DAFTC emblem">
+  <video autoplay muted loop playsinline>
+    <source src="daftc-animation.mp4" type="video/mp4">
+    <source src="daftc-animation.webm" type="video/webm">
+    Your browser does not support the video tag.
+  </video>
   <h1>Coming Soon</h1>
 </body>
 </html>
