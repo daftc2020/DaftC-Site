@@ -105,9 +105,11 @@
   </main>
 
   <!-- Background audio (starts muted per autoplay policy) -->
-  <audio id="bg-audio" autoplay loop>
-    <source src="daftc-coin.mp3" type="audio/mpeg">
-  </audio>
+  <audio id="bg-audio" autoplay loop muted preload="auto">
+  <source src="daftc-coin.mp3?v=2" type="audio/mpeg">
+  <source src="daftc-coin.ogg?v=2" type="audio/ogg">
+</audio>
+
 
   <button id="soundBtn" class="sound-btn" aria-pressed="false" aria-label="Toggle background sound">🔊 Sound On</button>
 
