@@ -1,94 +1,133 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>DAFTC — Coming Soon</title>
- <style>
-  html, body {
-    margin: 0; height: 100%; background:#000; color:#fff;
-    font-family: Arial, sans-serif;
-  }
-  .wrap {
-    min-height: 100vh;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    gap:24px; padding:20px;
-  }
-  .coin {
-    display:block; max-width:min(92vw,1200px); max-height:70vh;
-    width:auto; height:auto; object-fit:contain;
-  }
-
-  /* Metallic DAFTC-style type + shimmer */
-  h1{
-    position:relative; margin:0; text-transform:uppercase; letter-spacing:3px;
-    font-weight:900; text-align:center; font-size:clamp(2rem,5vw,3rem);
-
-    /* gold fill */
-    background: linear-gradient(180deg,#f5d98c 0%,#d4a94a 45%,#8c6328 100%);
-    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-
-    /* depth */
-    text-shadow: 0 2px 3px rgba(0,0,0,.85), 0 4px 6px rgba(0,0,0,.6);
-  }
-  /* moving glint sweep */
-  h1::after{
-    content:""; position:absolute; inset:0; pointer-events:none;
-    background:
-      linear-gradient(120deg, transparent 0%, rgba(255,255,255,.35) 10%, rgba(255,255,255,.85) 14%, rgba(255,255,255,.35) 18%, transparent 28%);
-    transform: translateX(-120%);
-    mix-blend-mode: screen;          /* nice on light over gold */
-    animation: glint 3.2s ease-in-out 0.6s infinite;
-  }
-  @keyframes glint{
-    0%   { transform: translateX(-120%); }
-    48%  { transform: translateX(120%); }
-    100% { transform: translateX(120%); }
-  }
-
-  /* accessibility */
-  @media (prefers-reduced-motion: reduce){
-    h1::after{ animation:none; opacity:0; }
-  }
-</style>
-
-</head>
-  <audio id="bg-audio" autoplay loop>
-  <source src="DaftC coin.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
-
-<script>
-  const audio = document.getElementById('bg-audio');
-  // Try to play muted first (autoplay policy safe)
-  audio.volume = 0.4;
-  audio.muted = true;
-  audio.play().catch(()=>{});
-
-  // Add a small toggle button
-  const btn = document.createElement('button');
-  btn.textContent = "🔊 Sound On";
-  Object.assign(btn.style,{
-    position:'fixed', bottom:'20px', right:'20px',
-    padding:'10px 14px', border:'none', borderRadius:'8px',
-    background:'rgba(0,0,0,0.6)', color:'#fff',
-    fontSize:'14px', cursor:'pointer', zIndex:1000
-  });
-  btn.onclick = ()=>{
-    if(audio.muted){
-      audio.muted = false;
-      btn.textContent = "🔇 Sound Off";
-    }else{
-      audio.muted = true;
-      btn.textContent = "🔊 Sound On";
+  <style>
+    :root {
+      --gold-1: #f2d48a; /* light */
+      --gold-2: #c79a3a; /* mid */
+      --gold-3: #7a5321; /* deep */
     }
-  };
-  document.body.appendChild(btn);
-</script>
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: #000;
+      color: #fff;
+      font-family: Arial, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, sans-serif;
+    }
+
+    .wrap {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: clamp(16px, 4vw, 40px);
+    }
+
+    .stack {
+      display: grid;
+      justify-items: center;
+      gap: clamp(12px, 2.2vw, 28px);
+      width: 100%;
+      max-width: 1280px;
+    }
+
+    /* Coin: always fully visible, never cropped */
+    .coin {
+      display: block;
+      width: 100%;
+      max-width: min(92vw, 1200px);
+      max-height: 70vh;
+      object-fit: contain;   /* keep entire emblem visible */
+      height: auto;
+      filter: contrast(103%) brightness(100%);
+      animation: fade-in 400ms ease-out both;
+    }
+
+    /* Gold text styled like the coin lettering (static, no shimmer) */
+    .title {
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-weight: 900;
+      text-align: center;
+      font-size: clamp(1.6rem, 5vw, 3rem);
+      line-height: 1;
+
+      /* metallic gradient fill */
+      background: linear-gradient(180deg, var(--gold-1) 0%, var(--gold-2) 48%, var(--gold-3) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      /* subtle depth like stamped metal */
+      text-shadow:
+        0 2px 0 rgba(0,0,0,0.55),
+        0 6px 12px rgba(0,0,0,0.55);
+      animation: rise 500ms ease-out 120ms both;
+    }
+
+    /* Sound toggle button */
+    .sound-btn {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      padding: 10px 14px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      background: rgba(0,0,0,0.55);
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+    }
+    .sound-btn:hover { background: rgba(255,255,255,0.08); }
+
+    /* Animations */
+    @keyframes fade-in { from { opacity: 0 } to { opacity: 1 } }
+    @keyframes rise    { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: translateY(0) } }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      .coin, .title { animation: none; }
+    }
+  </style>
+</head>
 <body>
   <main class="wrap">
-    <img class="coin" src="daftc-animation.gif?v=3" alt="DAFTC animated crest">
-    <h1>Coming Soon</h1>
+    <div class="stack">
+      <img class="coin" src="daftc-animation.gif?v=5" alt="DAFTC animated crest">
+      <h1 class="title">Coming Soon</h1>
+    </div>
   </main>
+
+  <!-- Background audio (starts muted per autoplay policy) -->
+  <audio id="bg-audio" autoplay loop>
+    <source src="daftc-coin.mp3" type="audio/mpeg">
+  </audio>
+
+  <button id="soundBtn" class="sound-btn" aria-pressed="false" aria-label="Toggle background sound">🔊 Sound On</button>
+
+  <script>
+    // Audio init (muted autoplay for browser policy)
+    const audio = document.getElementById('bg-audio');
+    const btn   = document.getElementById('soundBtn');
+
+    audio.volume = 0.4;   // adjust as you like
+    audio.muted  = true;  // start muted to allow autoplay
+
+    // Safari/iOS sometimes needs an explicit play attempt
+    audio.play().catch(() => { /* ignored until user interacts */ });
+
+    btn.addEventListener('click', () => {
+      const willUnmute = audio.muted;
+      audio.muted = !willUnmute;
+      btn.textContent = willUnmute ? '🔇 Sound Off' : '🔊 Sound On';
+      btn.setAttribute('aria-pressed', String(willUnmute));
+      if (willUnmute) audio.play().catch(()=>{});
+    });
+  </script>
 </body>
 </html>
