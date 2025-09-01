@@ -24,14 +24,15 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: url("daftc-animation.gif") center center / cover no-repeat;
+      background: url("daftc-animation.gif") center center / contain no-repeat;
+      background-color: #000; /* fallback behind transparent areas */
       z-index: -2;
     }
     body::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.5); /* dark overlay */
+      background: rgba(0,0,0,0.4); /* overlay to keep text readable */
       z-index: -1;
     }
     h1 {
